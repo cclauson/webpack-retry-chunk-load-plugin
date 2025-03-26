@@ -81,7 +81,7 @@ export class RetryChunkLoadPlugin {
               return result + (queryMap.hasOwnProperty(chunkId) ? '?' + queryMap[chunkId]  : '');
             };
             ${RuntimeGlobals.ensureChunk} = function(chunkId){
-              var result = oldLoadScript(chunkId);
+              var result = oldLoadScript.apply(undefined, arguments);
               return result.catch(function(error){
                 var retries = countMap.hasOwnProperty(chunkId) ? countMap[chunkId] : ${maxRetries};
                 if (retries < 1) {
